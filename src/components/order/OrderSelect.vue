@@ -1,6 +1,7 @@
 <template>
       <div class="row">
-        <div style="margin-top: 60px">
+        <h1 style="text-align: center;margin-top: 80px">订单模块</h1>
+        <div>
           <div class="row">
             <div class="col-xs-4 col-xs-push-8" style="margin: 40px 0">
               <div class="input-group">
@@ -30,7 +31,7 @@
               <td>{{order.leaveDate}}</td>
               <td>{{order.hPrice}}</td>
               <td>{{order.oDate}}</td>
-              <td>{{order.oStatus}}<el-button type="text" v-if="order.oStatus==1" @click="submit(index);" class="edit">编辑</el-button></td>
+              <td>{{order.oStatus}}<el-button type="text" v-if="order.oStatus==1" @click="submit(order.oId);" class="edit">编辑</el-button></td>
               <td>{{order.uId}}</td>
               <td>{{order.hId}}</td>
             </tr>
@@ -41,7 +42,8 @@
 
 <script>
     export default {
-        name: "OrderSelect",
+      inject:['reload'],
+      name: "OrderSelect",
       data(){
           return{
             orders:[],
@@ -63,16 +65,16 @@
             })
           })
         },
-          submit(index) {
-            this.$prompt(`确定修改订单编号为${index+1}订单状态`, '提示', {
+          submit(id) {
+            this.$prompt(`确定修改订单编号为${id}订单状态`, '提示', {
               confirmButtonText: '确定',
               cancelButtonText: '取消',
             }).then(({ value }) => {
               this.$axios.post(`/order/updateorder`,{
-                oId: index+1,
+                oId: id,
                 oStatus: value,
               }).then((result)=>{
-                this.$router.go(0)
+                this.reload()
               })
               this.$message({
                 type: 'success',

@@ -2,8 +2,9 @@
   <div class="container">
     <div class="row">
       <div>
+        <h1 style="text-align: center;margin-top: 80px">评价模块</h1>
         <div class="row">
-          <div class="col-xs-3 col-xs-push-2" style="margin: 100px 0 20px">
+          <div class="col-xs-3 col-xs-push-2" style="margin: 20px 0 40px">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="请输入房源编号" v-model="hId">
               <span class="input-group-btn">
@@ -11,7 +12,7 @@
       </span>
             </div>
           </div>
-          <div class="col-xs-3 col-xs-push-2" style="margin: 100px 0 20px">
+          <div class="col-xs-3 col-xs-push-2" style="margin: 20px 0 40px">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="请输入用户编号" v-model="uId">
               <span class="input-group-btn">
@@ -19,7 +20,7 @@
       </span>
             </div>
           </div>
-          <div class="col-xs-3 col-xs-push-2" style="margin: 100px 0 20px">
+          <div class="col-xs-3 col-xs-push-2" style="margin: 20px 0 40px">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="查询推荐的评价">
               <span class="input-group-btn">
@@ -51,7 +52,7 @@
           <td>{{allAssessment.uId}}</td>
           <td>{{allAssessment.oId}}</td>
           <td>{{allAssessment.hId}}</td>
-          <td>{{allAssessment.recommend}}<el-button type="text" @click="submit(index);" class="edit">是否推荐</el-button></td>
+          <td>{{allAssessment.recommend}}<el-button type="text" @click="submit(allAssessment.aId);" class="edit">是否推荐</el-button></td>
         </tr>
         </tbody>
       </table>
@@ -61,6 +62,7 @@
 
 <script>
   export default {
+    inject:['reload'],
     name: "AssessmentSelect",
     data(){
       return{
@@ -91,16 +93,16 @@
           console.log(this.allAssessments)
         })
       },
-      submit(index) {
-        this.$prompt(`确定推荐评价编号为${index+1}评价`, '提示', {
+      submit(id) {
+        this.$prompt(`确定推荐评价编号为${id}评价`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
         }).then(({ value }) => {
           this.$axios.post(`/assessment/recommendassessment`,{
-            aId: index+1,
+            aId: id,
             recommend: value,
           }).then((result)=>{
-            this.$router.go(0)
+            this.reload()
             // console.log(this.orders)
           })
           this.$message({

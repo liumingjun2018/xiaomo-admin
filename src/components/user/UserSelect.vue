@@ -1,9 +1,10 @@
 <template>
-  <div class="container" style="margin-top:30px">
+  <div class="container">
+    <h1 style="text-align: center;margin-top: 80px">用户模块</h1>
     <div class="row">
       <div>
         <div class="row">
-          <div class="col-xs-4 col-xs-push-8" style="margin: 40px 0">
+          <div class="col-xs-4 col-xs-push-8" style="margin: 20px 0 40px">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="请输入用户手机号" v-model="userPhone">
               <span class="input-group-btn">

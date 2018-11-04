@@ -7,6 +7,7 @@ import UserSelect from '@/components/user/UserSelect.vue'
 import AssessmentSelect from '@/components/assessment/AssessmentSelect.vue'
 import DiarySelect from '@/components/diary/DiarySelect.vue'
 import AdminNavigation from '@/components/AdminNavigation.vue'
+import HouseSelect from '@/components/house/HouseSelect.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -19,5 +20,6 @@ export default new Router({
     {path: '/assessmentselect',component: AssessmentSelect},
     {path: '/diaryselect',component: DiarySelect},
     {path: '/adminnavigation',component: AdminNavigation},
+    {path: '/houseselect',component: HouseSelect},
   ]
 })

@@ -37,7 +37,7 @@
         sessionStorage.clear();
         // this.$router.push({path:'/login'})
         window.location.href='http://localhost:8080/login';
-      }
+      },
     },
   }
 </script>

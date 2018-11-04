@@ -1,6 +1,7 @@
 <template>
         <div class="row">
-          <div class="col-xs-3 col-xs-push-2" style="margin: 100px 0 20px">
+          <h1 style="text-align: center;margin-top: 80px">日记模块</h1>
+          <div class="col-xs-3 col-xs-push-2" style="margin: 20px 0 40px">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="请输入房源编号" v-model="hId">
               <span class="input-group-btn">
@@ -8,7 +9,7 @@
       </span>
             </div>
           </div>
-          <div class="col-xs-3 col-xs-push-2" style="margin: 100px 0 20px">
+          <div class="col-xs-3 col-xs-push-2" style="margin: 20px 0 40px">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="请输入用户编号" v-model="uId">
               <span class="input-group-btn">
@@ -16,7 +17,7 @@
       </span>
             </div>
           </div>
-          <div class="col-xs-3 col-xs-push-2" style="margin: 100px 0 20px">
+          <div class="col-xs-3 col-xs-push-2" style="margin: 20px 0 40px">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="查询推荐的评价">
               <span class="input-group-btn">
@@ -44,7 +45,7 @@
           <td>{{allDiary.dDate}}</td>
           <td>{{allDiary.uId}}</td>
           <td>{{allDiary.hId}}</td>
-          <td>{{allDiary.recommend}}<el-button type="text" @click="submit(index)" class="edit">是否推荐</el-button></td>
+          <td>{{allDiary.recommend}}<el-button type="text" @click="submit(allDiary.dId)" class="edit">是否推荐</el-button></td>
           <td>{{allDiary.dTitle}}</td>
         </tr>
         </tbody>
@@ -54,6 +55,7 @@
 
 <script>
   export default {
+    inject:['reload'],
     name: "AssessmentSelect",
     data(){
       return{
@@ -84,16 +86,16 @@
           console.log(this.allDiarys)
         })
       },
-      submit(index) {
-        this.$prompt(`确定推荐${index+1}日记`, '提示', {
+      submit(id) {
+        this.$prompt(`确定推荐${id}日记`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
         }).then(({ value }) => {
           this.$axios.post(`/diarys/recommenddiary`,{
-            dId: index+1,
+            dId: id,
             recommend: value,
           }).then((result)=>{
-            this.$router.go(0)
+            this.reload()
           })
           this.$message({
             type: 'success',
